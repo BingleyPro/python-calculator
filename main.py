@@ -12,6 +12,7 @@ def backwards_get_percentage_of(value, percentage):
 # -- SUBMENU FUNCTIONS --
 def gst_menu():
     menuSelection = int(input("1. Calculate GST for a value at 10% rate \n2. Calculate a custom GST rate for a value\n3. Exit this menu\n"))
+    print("\n")
     if menuSelection == 1:
         GST = 10
     elif menuSelection == 2:
@@ -30,6 +31,7 @@ def gst_menu():
 
 def percentage_menu():
     menuSelection = int(input("1. Calculate percentage of a value \n2. Calculate value before applying percentage\n"))
+    print("\n")
     if menuSelection == 1:
         value = float(input("Enter the value: "))
         percentage = float(input("Enter the percentage: "))
@@ -47,14 +49,41 @@ def percentage_menu():
     input("Press enter to continue or Ctrl+C to exit.")
     menu()
 
+def discount_menu():
+    menuSelection = int(input("1. Calculate price after discount \n2. Calculate original price before discount\n"))
+    print("\n")
+    if menuSelection == 1:
+        value = float(input("Enter the value: "))
+        discount = float(input("Enter the discount: "))
+        result = value - get_percentage_of(value, discount)
+        print(f"{discount}% discount of {value} is {result}.")
+    elif menuSelection == 2:
+        value = float(input("Enter the value: "))
+        discount = float(input("Enter the discount: "))
+        result = backwards_get_percentage_of(value, discount)
+        print(f"The value before {discount}% was applied to {value} is {result}.")
+    else:
+        print("Invalid selection. Please try again.")
+        discount_menu()
+
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
 # -- MAIN MENU --
 def menu():
-    print("\n\n\n--- Simple Calculator v0.3 ---")
-    menuSelection = int(input("1. GST Calculator \n2. Percentage Calculator\n"))
+    print("\n\n\n--- Simple Calculator v0.4 ---")
+    menuSelection = int(input("1. GST Calculator \n2. Percentage Calculator\n3. Discount Calculator\n4. Quote of the Day\n5. Exit\n"))
+    print("\n")
     if menuSelection == 1:
         gst_menu()
     elif menuSelection == 2:
         percentage_menu()
+    elif menuSelection == 3:
+        discount_menu()
+    elif menuSelection == 4:
+        input("Quote of the day: \"There is no quote\"")
+    elif menuSelection == 5:
+        exit()
     else:
         print("Invalid selection. Please try again.")
         menu()

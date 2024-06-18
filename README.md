@@ -1,2 +1,2 @@
 # Python Calculator
-This project is still a prototype. Check back later for more information!
+This is a simple calculator for functions like calculating GST, discounts, percentages & more!
