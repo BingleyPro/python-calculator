@@ -1,38 +1,7 @@
-# Scripts by BingleyPro
-import json
+# Simple Python Calculator by BingleyPro
 
-# Setup tasks for to-do list
-tasks = []
-
-# -- To-Do List Functions ---
-def add_task(title, desc=""):
-    tasks.append({"title": title, "desc": desc, "completed": False})
-
-def list_tasks():
-    for index, task in enumerate(tasks):
-        print(f"{index + 1}. {task['title']} - {task['desc']} - {'Completed' if task['completed'] else 'Not Completed'}")
-
-def complete_task(index):
-    tasks[index]["completed"] = True
-
-def remove_task(index):
-    tasks.pop(index)
-
-def save_tasks_to_file(filename):
-    with open(filename, "w") as file:
-        json.dump(tasks, file)
-
-def load_tasks_from_file(filename):
-    global tasks
-    try:
-        with open(filename, 'r') as f:
-            tasks = json.load(f)
-    except FileNotFoundError:
-        tasks = []
-    except json.JSONDecodeError:
-        print("Error: Invalid JSON format in file.")
-
-# -- Calculator Functions --
+# -- FUNCTIONS --
+# Calculate the percentage of a value
 def get_percentage_of(value, percentage):
     return value * percentage / 100
 
@@ -40,54 +9,54 @@ def get_percentage_of(value, percentage):
 def backwards_get_percentage_of(value, percentage):
     return (value * percentage) / (percentage + 1)
 
-def addition(value1, value2):
-    return value1 + value2
+# -- SUBMENU FUNCTIONS --
+def gst_menu():
+    menuSelection = int(input("1. Calculate GST for a value at 10% rate \n2. Calculate a custom GST rate for a value\n3. Exit this menu\n"))
+    if menuSelection == 1:
+        GST = 10
+    elif menuSelection == 2:
+        GST = int(input("Enter a custom GST rate (without percentage sign): "))
+    elif menuSelection == 3:
+        menu()
+    else:
+        print("Invalid selection. Please try again.")
+        gst_menu()
 
-def subtraction(value1, value2):
-    return value1 - value2
+    moneyBeforeGST = float(input("Enter a value: "))
+    moneyAfterGST = moneyBeforeGST + (moneyBeforeGST * GST / 100)
+    print(f"${moneyBeforeGST} is ${moneyAfterGST} after a GST of {GST}%.")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
 
-def multiplication(value1, value2):
-    return value1 * value2
+def percentage_menu():
+    menuSelection = int(input("1. Calculate percentage of a value \n2. Calculate value before applying percentage\n"))
+    if menuSelection == 1:
+        value = float(input("Enter the value: "))
+        percentage = float(input("Enter the percentage: "))
+        result = get_percentage_of(value, percentage)
+        print(f"{percentage}% of {value} is {result}.")
+    elif menuSelection == 2:
+        value = float(input("Enter the value: "))
+        percentage = float(input("Enter the percentage: "))
+        result = backwards_get_percentage_of(value, percentage)
+        print(f"The value before {percentage}% was applied to {value} is {result}.")
+    else:
+        print("Invalid selection. Please try again.")
+        percentage_menu()
+    
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
 
-def division(value1, value2):
-    return value1 / value2
+# -- MAIN MENU --
+def menu():
+    print("\n\n\n--- Simple Calculator v0.3 ---")
+    menuSelection = int(input("1. GST Calculator \n2. Percentage Calculator\n"))
+    if menuSelection == 1:
+        gst_menu()
+    elif menuSelection == 2:
+        percentage_menu()
+    else:
+        print("Invalid selection. Please try again.")
+        menu()
 
-# Main Script
-def show_menu():
-    load_tasks_from_file("tasks.json")
-
-    while True:
-        print("\n--- To-Do List Application ---")
-        print("1. Add Task")
-        print("2. List Tasks")
-        print("3. Mark Task as Completed")
-        print("4. Remove Task")
-        print("5. Save Tasks")
-        print("6. Exit")
-        choice = input("Enter your choice: ")
-
-        if choice == "1":
-            title = input("Enter task title: ")
-            description = input("Enter task description (optional): ")
-            add_task(title, description)
-        elif choice == "2":
-            list_tasks()
-        elif choice == "3":
-            index = int(input("Enter task index to mark as completed: "))
-            complete_task(index)
-        elif choice == "4":
-            index = int(input("Enter task index to remove: "))
-            remove_task(index)
-        elif choice == "5":
-            save_tasks_to_file("tasks.json")
-            print("Tasks saved.")
-        elif choice == "6":
-            save_tasks_to_file("tasks.json") 
-            print("Exiting program.")
-            break
-        else:
-            print("Invalid choice. Please enter a number between 1 and 6.")
-
-# Main program loop
-if __name__ == "__main__":
-    show_menu()
+menu()
