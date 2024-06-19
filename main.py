@@ -1,4 +1,5 @@
-# Simple Python Calculator by BingleyPro
+# Python Calculator by BingleyPro
+# Feel free to use and modify this code as you see fit!
 
 # -- FUNCTIONS --
 # Calculate the percentage of a value
