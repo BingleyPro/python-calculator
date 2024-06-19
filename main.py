@@ -194,81 +194,196 @@ def discount_menu():
     input("Press enter to continue or Ctrl+C to exit.")
     menu()
 
-def interest_menu():
-    menuSelection = int(input("1. Calculate simple interest \n2. Calculate compound interest\n"))
-    print("\n")
-    if menuSelection == 1:
-        principal = float(input("Enter the principal amount: "))
-        rate = float(input("Enter the rate of interest: "))
-        time = float(input("Enter the time period in years: "))
-        result = (principal * rate * time) / 100
-        print(f"The simple interest is {result}.")
-    elif menuSelection == 2:
-        principal = float(input("Enter the principal amount: "))
-        rate = float(input("Enter the rate of interest: "))
-        time = float(input("Enter the time period in years: "))
-        result = principal * (1 + rate / 100) ** time
-        print(f"The compound interest is {result}.")
-    else:
-        print("Invalid selection. Please try again.")
-        interest_menu()
+def compound_interest_menu():
+    principal = float(input("Enter the principal amount: "))
+    rate = float(input("Enter the annual interest rate (in %): "))
+    time = float(input("Enter the time (in years): "))
+    times_compounded = int(input("Enter the number of times interest is compounded per year: "))
+    amount = calculate_compound_interest(principal, rate, time, times_compounded)
+    print(f"The amount after {time} years with an interest rate of {rate}% compounded {times_compounded} times per year is: ${amount:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
 
-def unit_conversion_menu():
-    menuSelection = int(input("1. Convert length \n2. Convert weight\n 3. Convert volume\n"))
-    print("\n")
-    if menuSelection == 1:
-        value = float(input("Enter the value: "))
-        unit = int(input("Convert to: 1. cm 2. m 3. km\n"))
-        if unit == 1:
-            result = value * 100
-            print(f"{value}m is {result}cm.")
-        elif unit == 2:
-            result = value / 100
-            print(f"{value}cm is {result}m.")
-        elif unit == 3:
-            result = value / 1000
-            print(f"{value}m is {result}km.")
-        else:
-            print("Invalid selection. Please try again.")
-            unit_conversion_menu()
-    elif menuSelection == 2:
-        value = float(input("Enter the value: "))
-        unit = int(input("Convert to: 1. g 2. kg 3. ton\n"))
-        if unit == 1:
-            result = value * 1000
-            print(f"{value}kg is {result}g.")
-        elif unit == 2:
-            result = value / 1000
-            print(f"{value}g is {result}kg.")
-        elif unit == 3:
-            result = value / 1000000
-            print(f"{value}kg is {result}ton.")
-        else:
-            print("Invalid selection. Please try again.")
-            unit_conversion_menu()
-    elif menuSelection == 3:
-        value = float(input("Enter the value: "))
-        unit = int(input("Convert to: 1. ml 2. l 3. kl\n"))
-        if unit == 1:
-            result = value * 1000
-            print(f"{value}l is {result}ml.")
-        elif unit == 2:
-            result = value / 1000
-            print(f"{value}ml is {result}l.")
-        elif unit == 3:
-            result = value / 1000000
-            print(f"{value}l is {result}kl.")
-    else:
-        print("Invalid selection. Please try again.")
-        unit_conversion_menu()
+def simple_interest_menu():
+    principal = float(input("Enter the principal amount: "))
+    rate = float(input("Enter the annual interest rate (in %): "))
+    time = float(input("Enter the time (in years): "))
+    interest = calculate_simple_interest(principal, rate, time)
+    print(f"The simple interest for a principal amount of ${principal} at an interest rate of {rate}% over {time} years is: ${interest:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
 
+def bmi_menu():
+    weight = float(input("Enter your weight in kilograms: "))
+    height = float(input("Enter your height in meters: "))
+    bmi = calculate_bmi(weight, height)
+    print(f"Your BMI is: {bmi:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def currency_converter_menu():
+    amount = float(input("Enter the amount: "))
+    rate = float(input("Enter the conversion rate: "))
+    converted_amount = convert_currency(amount, rate)
+    print(f"The converted amount is: ${converted_amount:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def length_converter_menu():
+    value = float(input("Enter the value: "))
+    from_unit = input("Enter the unit to convert from (meters, kilometers, miles, feet): ")
+    to_unit = input("Enter the unit to convert to (meters, kilometers, miles, feet): ")
+    converted_value = convert_length(value, from_unit, to_unit)
+    print(f"The converted value is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def mortgage_menu():
+    principal = float(input("Enter the principal amount: "))
+    rate = float(input("Enter the annual interest rate (in %): "))
+    years = int(input("Enter the number of years: "))
+    monthly_payment = calculate_mortgage(principal, rate, years)
+    print(f"Your monthly mortgage payment is: ${monthly_payment:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def tip_menu():
+    amount = float(input("Enter the total amount: "))
+    percentage = float(input("Enter the tip percentage: "))
+    tip = calculate_tip(amount, percentage)
+    print(f"The tip amount is: ${tip:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def calorie_menu():
+    weight = float(input("Enter your weight in kilograms: "))
+    height = float(input("Enter your height in centimeters: "))
+    age = int(input("Enter your age: "))
+    gender = input("Enter your gender (male/female): ")
+    activity_level = float(input("Enter your activity level (1.2 for sedentary, 1.375 for light, 1.55 for moderate, 1.725 for active, 1.9 for very active): "))
+    calories = calculate_calories(weight, height, age, gender, activity_level)
+    print(f"Your daily caloric need is: {calories:.2f} calories")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def temperature_converter_menu():
+    value = float(input("Enter the temperature value: "))
+    from_unit = input("Enter the unit to convert from (Celsius, Fahrenheit, Kelvin): ")
+    to_unit = input("Enter the unit to convert to (Celsius, Fahrenheit, Kelvin): ")
+    converted_value = convert_temperature(value, from_unit, to_unit)
+    print(f"The converted temperature is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def age_menu():
+    birth_year = int(input("Enter your birth year: "))
+    current_year = int(input("Enter the current year: "))
+    age = calculate_age(birth_year, current_year)
+    print(f"Your age is: {age} years")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def loan_menu():
+    principal = float(input("Enter the loan amount: "))
+    rate = float(input("Enter the annual interest rate (in %): "))
+    years = int(input("Enter the number of years: "))
+    monthly_payment = calculate_loan(principal, rate, years)
+    print(f"Your monthly loan payment is: ${monthly_payment:.2f}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def time_difference_menu():
+    time1 = input("Enter the first time (HH:MM): ")
+    time2 = input("Enter the second time (HH:MM): ")
+    difference = calculate_time_difference(time1, time2)
+    hours = difference // 60
+    minutes = difference % 60
+    print(f"The time difference is: {hours} hours and {minutes} minutes")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def distance_converter_menu():
+    value = float(input("Enter the distance value: "))
+    from_unit = input("Enter the unit to convert from (meters, kilometers, miles, feet): ")
+    to_unit = input("Enter the unit to convert to (meters, kilometers, miles, feet): ")
+    converted_value = convert_distance(value, from_unit, to_unit)
+    print(f"The converted distance is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def speed_converter_menu():
+    value = float(input("Enter the speed value: "))
+    from_unit = input("Enter the unit to convert from (km/h, mph, m/s): ")
+    to_unit = input("Enter the unit to convert to (km/h, mph, m/s): ")
+    converted_value = convert_speed(value, from_unit, to_unit)
+    print(f"The converted speed is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def area_converter_menu():
+    value = float(input("Enter the area value: "))
+    from_unit = input("Enter the unit to convert from (square meters, square feet, acres): ")
+    to_unit = input("Enter the unit to convert to (square meters, square feet, acres): ")
+    converted_value = convert_area(value, from_unit, to_unit)
+    print(f"The converted area is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def volume_converter_menu():
+    value = float(input("Enter the volume value: "))
+    from_unit = input("Enter the unit to convert from (liters, gallons, cubic meters): ")
+    to_unit = input("Enter the unit to convert to (liters, gallons, cubic meters): ")
+    converted_value = convert_volume(value, from_unit, to_unit)
+    print(f"The converted volume is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def weight_converter_menu():
+    value = float(input("Enter the weight value: "))
+    from_unit = input("Enter the unit to convert from (kilograms, pounds, ounces): ")
+    to_unit = input("Enter the unit to convert to (kilograms, pounds, ounces): ")
+    converted_value = convert_weight(value, from_unit, to_unit)
+    print(f"The converted weight is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def energy_converter_menu():
+    value = float(input("Enter the energy value: "))
+    from_unit = input("Enter the unit to convert from (joules, calories, kilowatt-hours): ")
+    to_unit = input("Enter the unit to convert to (joules, calories, kilowatt-hours): ")
+    converted_value = convert_energy(value, from_unit, to_unit)
+    print(f"The converted energy is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def power_converter_menu():
+    value = float(input("Enter the power value: "))
+    from_unit = input("Enter the unit to convert from (watts, horsepower, BTUs): ")
+    to_unit = input("Enter the unit to convert to (watts, horsepower, BTUs): ")
+    converted_value = convert_power(value, from_unit, to_unit)
+    print(f"The converted power is: {converted_value} {to_unit}")
+    input("Press enter to continue or Ctrl+C to exit.")
+    menu()
+
+def pressure_converter_menu():
+    value = float(input("Enter the pressure value: "))
+    from_unit = input("Enter the unit to convert from (pascals, bar, psi): ")
+    to_unit = input("Enter the unit to convert to (pascals, bar, psi): ")
+    converted_value = convert_pressure(value, from_unit, to_unit)
+    print(f"The converted pressure is: {converted_value} {to_unit}")
     input("Press enter to continue or Ctrl+C to exit.")
     menu()
 
 # -- MAIN MENU --
 def menu():
     print("\n\n\n--- Simple Calculator v0.4 ---")
-    menuSelection = int(input("1. GST Calculator \n2. Percentage Calculator\n3. Discount Calculator\n 4. Interest Calculator\n 5. Unit Conversion\n 6. Exit\n"))
+    menuSelection = int(input(
+        "1. GST Calculator\n2. Percentage Calculator\n3. Discount Calculator\n4. Compound Interest Calculator\n"
+        "5. Simple Interest Calculator\n6. BMI Calculator\n7. Currency Converter\n8. Length Converter\n"
+        "9. Mortgage Calculator\n10. Tip Calculator\n11. Calorie Calculator\n12. Temperature Converter\n"
+        "13. Age Calculator\n14. Loan Calculator\n15. Time Difference Calculator\n16. Distance Converter\n"
+        "17. Speed Converter\n18. Area Converter\n19. Volume Converter\n20. Weight Converter\n"
+        "21. Energy Converter\n22. Power Converter\n23. Pressure Converter\n24. Exit\n"))
     print("\n")
     if menuSelection == 1:
         gst_menu()
@@ -277,13 +392,48 @@ def menu():
     elif menuSelection == 3:
         discount_menu()
     elif menuSelection == 4:
-        interest_menu()
+        compound_interest_menu()
     elif menuSelection == 5:
-        unit_conversion_menu()
+        simple_interest_menu()
     elif menuSelection == 6:
+        bmi_menu()
+    elif menuSelection == 7:
+        currency_converter_menu()
+    elif menuSelection == 8:
+        length_converter_menu()
+    elif menuSelection == 9:
+        mortgage_menu()
+    elif menuSelection == 10:
+        tip_menu()
+    elif menuSelection == 11:
+        calorie_menu()
+    elif menuSelection == 12:
+        temperature_converter_menu()
+    elif menuSelection == 13:
+        age_menu()
+    elif menuSelection == 14:
+        loan_menu()
+    elif menuSelection == 15:
+        time_difference_menu()
+    elif menuSelection == 16:
+        distance_converter_menu()
+    elif menuSelection == 17:
+        speed_converter_menu()
+    elif menuSelection == 18:
+        area_converter_menu()
+    elif menuSelection == 19:
+        volume_converter_menu()
+    elif menuSelection == 20:
+        weight_converter_menu()
+    elif menuSelection == 21:
+        energy_converter_menu()
+    elif menuSelection == 22:
+        power_converter_menu()
+    elif menuSelection == 23:
+        pressure_converter_menu()
+    elif menuSelection == 24:
         exit()
     else:
         print("Invalid selection. Please try again.")
         menu()
-
 menu()
