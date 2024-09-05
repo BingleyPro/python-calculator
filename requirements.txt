@@ -1,0 +1,2 @@
+meson==1.5.1
+setuptools==73.0.0
